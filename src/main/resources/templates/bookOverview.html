@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Overzicht van de boeken</title>
+</head>
+<body>
+    <h1>Overzicht van de boeken</h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Auteur</th>
+            <th>Beschikbaar</th>
+            <th>Bestel</th>
+        </tr>
+        <tr th:each="book : ${allBooks}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.numberOfAvailableCopies}"></td>
+            <td><a th:href="@{/copy/new/{bookId}(bookId=${book.bookId})}">Bestel</a></td>
+        </tr>
+    </table>
+</body>
+</html>
