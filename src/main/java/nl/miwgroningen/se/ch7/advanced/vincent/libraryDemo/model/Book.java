@@ -3,11 +3,10 @@ package nl.miwgroningen.se.ch7.advanced.vincent.libraryDemo.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Vincent Velthuizen <v.r.velthuizen@pl.hanze.nl>
@@ -25,7 +24,8 @@ public class Book {
 
     private String title;
 
-    private String author;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Author> authors = new HashSet<>();
 
     @OneToMany(mappedBy = "book")
     private List<Copy> copies;
@@ -36,6 +36,16 @@ public class Book {
             count += copy.isAvailable() ? 1 : 0;
         }
         return count;
+    }
+
+    public String getAuthorsDisplayString() {
+        StringBuilder authorsString = new StringBuilder();
+
+        for (Author author : authors) {
+            authorsString.append(" ").append(author.getDisplayName());
+        }
+
+        return authorsString.toString();
     }
 
 }

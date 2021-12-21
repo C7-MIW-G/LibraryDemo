@@ -17,7 +17,11 @@
             </tr>
             <tr>
                 <td><label for="author">Auteur</label></td>
-                <td><input id="author" type="text" th:field="*{author}" /></td>
+                <td>
+                    <select multiple id="author" th:field="*{authors}">
+                        <option th:each="author : ${allAuthors}" th:value="${author.authorId}" th:text="${author.displayName}"></option>
+                    </select>
+                </td>
             </tr>
         </table>
         <input type="submit" value="Sla boek op" />
