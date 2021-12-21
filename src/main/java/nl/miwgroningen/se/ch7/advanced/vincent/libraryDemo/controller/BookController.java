@@ -24,7 +24,7 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping({"/", "/books"})
     protected String showBookOverview(Model model) {
         model.addAttribute("allBooks", bookRepository.findAll());
         return "bookOverview";
@@ -42,7 +42,7 @@ public class BookController {
             bookRepository.save(book);
         }
 
-        return "redirect:/";
+        return "redirect:/books";
     }
 
 }
