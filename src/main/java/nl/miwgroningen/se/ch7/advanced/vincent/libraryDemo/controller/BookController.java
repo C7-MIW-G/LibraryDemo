@@ -8,7 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 /**
  * @author Vincent Velthuizen <v.r.velthuizen@pl.hanze.nl>
@@ -47,6 +50,27 @@ public class BookController {
         }
 
         return "redirect:/books";
+    }
+
+    @GetMapping("/books/update/{bookTitle}")
+    protected String showBookForm(@PathVariable("bookTitle") String bookTitle, Model model) {
+        Optional<Book> book = bookRepository.findByTitle(bookTitle);
+        if (book.isEmpty()) {
+            return "redirect:/books";
+        }
+        model.addAttribute("book", book.get());
+        model.addAttribute("allAuthors", authorRepository.findAll());
+        return "bookForm";
+    }
+
+    @GetMapping("/book/details/{bookTitle}")
+    protected String showBookDetails(@PathVariable("bookTitle") String bookTitle, Model model) {
+        Optional<Book> book = bookRepository.findByTitle(bookTitle);
+        if (book.isEmpty()) {
+            return "redirect:/books";
+        }
+        model.addAttribute("book", book.get());
+        return "bookDetails";
     }
 
 }
