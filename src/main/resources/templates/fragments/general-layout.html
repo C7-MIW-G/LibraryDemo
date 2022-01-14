@@ -2,14 +2,15 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org"
                 xmlns:sec="https://www.thymeleaf.org"
                 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:fragment="baseHeader(title)">
+<head>
     <meta charset="UTF-8">
-    <title th:replace="${title}">Website van de Bibliotheek</title>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">LibraryDemo</title>
+<!--    <title th:replace="${title}">Website van de Bibliotheek</title>-->
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" href="/css/library.css">
 </head>
 <body>
-<div th:fragment="navbar">
+<header>
     <ul class="nav">
         <li class="nav-item">
             <a class="nav-link" th:href="@{/authors}">Auteurs</a>
@@ -27,11 +28,15 @@
             <a class="nav-link" th:href="@{/logout}">Logout</a>
         </li>
     </ul>
-</div>
+</header>
 
-<div th:fragment="footer">
+<section layout:fragment="content">
+    Page content goes here
+</section>
+
+<footer>
     <footer><p class="text-center text-muted">Copyright Vincent Velthuizen &copy; 2021</p></footer>
-</div>
+</footer>
 <div th:fragment="bottomScripts">
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
